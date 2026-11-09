@@ -76,10 +76,6 @@ const config = {
                     // eslint-disable-next-line no-undef
                     process.env.WEB_PLAUSIBLE_HOST ? process.env.WEB_PLAUSIBLE_HOST : "",
 
-                     // hash of the theme preloader in app.html
-                     "sha256-g67gIjM3G8yMbjbxyc3QUoVsKhdxgcQzCmSKXiZZo6s=",
-                     // hash of SvelteKit bootstrap emitted by static adapter
-                     "sha256-Fr4fK/6yssnxz3a6HPjctvYszbmbKuMVG6VLpEKfTAQ=",
                 ],
 
                 "script-src-attr": [
