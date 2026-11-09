@@ -67,8 +67,9 @@ const config = {
                 ],
 
                 "script-src": [
-                    "self",
-                    "wasm-unsafe-eval",
+                     "self",
+                     "unsafe-inline",
+                     "wasm-unsafe-eval",
                     "challenges.cloudflare.com",
                     "static.cloudflareinsights.com",
 
