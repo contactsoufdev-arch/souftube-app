@@ -33,7 +33,7 @@ if (env.apiURL) {
         setupEnvWatcher();
     }
 
-    runAPI(express, app, __dirname, cluster.isPrimary);
+    await runAPI(express, app, __dirname, cluster.isPrimary);
 
     app.get("*", (req, res, next) => {
         if (req.path.startsWith("/api/")) return next();
