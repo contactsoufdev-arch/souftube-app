@@ -29,7 +29,10 @@ app.use((req, res, next) => {
     }
     return staticFrontend(req, res, next);
 });
-app.use("/api", (req, _res, next) => next());
+app.use("/api", (req, _res, next) => {
+    req.url = req.originalUrl.replace(/^\/api/, "") || "/";
+    next();
+});
 
 if (env.apiURL) {
     const { runAPI } = await import("./core/api.js");
