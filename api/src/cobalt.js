@@ -18,16 +18,18 @@ const __dirname = path.dirname(__filename).slice(0, -4);
 
 app.disable("x-powered-by");
 
-// SoufTube single-origin build: Cobalt API + static frontend.
+// SoufTube single-origin build: API under /api, static frontend at /.
 // API routes remain available; frontend fallback handles browser navigation.
-app.use("/_app", (req, res, next) => {
-    if (!req.query.v) {
+const staticFrontend = express.static("/app/web", { index: "index.html" });
+app.use((req, res, next) => {
+    if (req.path.startsWith("/api")) return next();
+    if (req.path.startsWith("/_app") && !req.query.v) {
         const separator = req.originalUrl.includes("?") ? "&" : "?";
         return res.redirect(302, `${req.originalUrl}${separator}v=souftube`);
     }
-    next();
+    return staticFrontend(req, res, next);
 });
-app.use(express.static("/app/web", { index: "index.html" }));
+app.use("/api", (req, _res, next) => next());
 
 if (env.apiURL) {
     const { runAPI } = await import("./core/api.js");

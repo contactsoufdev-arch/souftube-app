@@ -5,7 +5,7 @@ WORKDIR /app
 RUN apk add --no-cache python3 make g++
 COPY . .
 RUN corepack enable && pnpm install --frozen-lockfile
-ENV WEB_DEFAULT_API=https://yt.soufdevinc.com/ WEB_HOST=yt.soufdevinc.com
+ENV WEB_DEFAULT_API=https://yt.soufdevinc.com/api/ WEB_HOST=yt.soufdevinc.com
 RUN pnpm --filter @imput/cobalt-web build
 RUN find /app/web/build -name '*.html' -exec sed -i -E 's/(\.(js|css))"/\1?v=souftube"/g' {} +
 RUN pnpm deploy --filter=@imput/cobalt-api --prod /prod/api
