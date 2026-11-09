@@ -29,8 +29,9 @@ app.use((req, res, next) => {
     }
     return staticFrontend(req, res, next);
 });
-app.use("/api", (req, _res, next) => {
-    req.url = req.originalUrl.replace(/^\/api/, "") || "/";
+app.use((req, _res, next) => {
+    if (!req.url.startsWith("/api")) return next();
+    req.url = req.url.replace(/^\/api/, "") || "/";
     next();
 });
 
