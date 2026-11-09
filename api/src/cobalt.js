@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 });
 app.use((req, _res, next) => {
     if (!req.url.startsWith("/api")) return next();
-    req.url = req.url.replace(/^\/api/, "") || "/";
+    req.url = "/" + req.url.replace(/^\/api\/?/, "").replace(/^\/+/, "");
     next();
 });
 
