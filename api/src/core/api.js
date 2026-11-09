@@ -24,13 +24,13 @@ import * as APIKeys from "../security/api-keys.js";
 import * as Cookies from "../processing/cookie/manager.js";
 import * as YouTubeSession from "../processing/helpers/youtube-session.js";
 
-const git = {
-    branch: await getBranch(),
-    commit: await getCommit(),
-    remote: await getRemote(),
-}
+const git = await Promise.all([
+    getBranch().catch(() => "main"),
+    getCommit().catch(() => "souftube"),
+    getRemote().catch(() => "contactsoufdev-arch/souftube-app"),
+]).then(([branch, commit, remote]) => ({ branch, commit, remote }));
 
-const version = await getVersion();
+const version = await getVersion().catch(() => "11.7");
 
 const acceptRegex = /^application\/json(; charset=utf-8)?$/;
 
