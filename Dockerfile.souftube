@@ -7,7 +7,7 @@ COPY . .
 RUN corepack enable && pnpm install --frozen-lockfile
 ENV WEB_DEFAULT_API=https://yt.soufdevinc.com/api/ WEB_HOST=yt.soufdevinc.com
 RUN pnpm --filter @imput/cobalt-web build
-RUN find /app/web/build -name '*.html' -exec sed -i -E 's/(\.(js|css))"/\1?v=souftube"/g' {} +
+RUN find /app/web/build -name '*.html' -exec sed -i -E 's/(\.(js|css))"/\1?v=souftube-api2"/g' {} +
 RUN pnpm deploy --filter=@imput/cobalt-api --prod /prod/api
 
 FROM node:24-alpine
