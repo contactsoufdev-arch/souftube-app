@@ -1,0 +1,18 @@
+FROM node:24-alpine AS build
+ENV PNPM_HOME=/pnpm
+ENV PATH=$PNPM_HOME:$PATH
+WORKDIR /app
+RUN apk add --no-cache python3 make g++
+COPY . .
+RUN corepack enable && pnpm install --frozen-lockfile
+ENV WEB_DEFAULT_API=/ WEB_HOST=yt.soufdevinc.com
+RUN pnpm --filter @imput/cobalt-web build
+RUN pnpm deploy --filter=@imput/cobalt-api --prod /prod/api
+
+FROM node:24-alpine
+WORKDIR /app
+COPY --from=build --chown=node:node /prod/api .
+COPY --from=build --chown=node:node /app/web/build /app/web
+USER node
+EXPOSE 9000
+CMD ["node", "src/cobalt"]
