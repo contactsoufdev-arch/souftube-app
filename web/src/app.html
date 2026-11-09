@@ -52,14 +52,6 @@
                 transition: opacity .2s ease-out;
             }
         </style>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                let settings = localStorage.getItem('settings'), appearance;
-                if (settings && ({ appearance } = JSON.parse(settings)) && appearance?.theme) {
-                    document.body.id = `body-${appearance.theme}`;
-                }
-            });
-        </script>
     </head>
     <body data-sveltekit-preload-data="hover" data-sveltekit-preload-code="eager">
         <div style="display: contents">
