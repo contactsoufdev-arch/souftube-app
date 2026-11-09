@@ -25,7 +25,7 @@ app.use((req, res, next) => {
     if (req.path.startsWith("/api")) return next();
     if (req.path.startsWith("/_app") && !req.query.v) {
         const separator = req.originalUrl.includes("?") ? "&" : "?";
-        return res.redirect(302, `${req.originalUrl}${separator}v=souftube-api3`);
+        return res.redirect(302, `${req.originalUrl}${separator}v=souftube-api4`);
     }
     return staticFrontend(req, res, next);
 });

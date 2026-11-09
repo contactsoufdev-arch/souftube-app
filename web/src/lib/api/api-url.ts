@@ -7,8 +7,8 @@ export const currentApiURL = () => {
     const customInstanceURL = processingSettings.customInstanceURL;
 
     if (processingSettings.enableCustomInstances && customInstanceURL.length > 0) {
-        return new URL(customInstanceURL).origin;
+        return new URL(customInstanceURL).toString().replace(/\/$/, "");
     }
 
-    return new URL(env.DEFAULT_API!).origin;
+    return new URL(env.DEFAULT_API!).toString().replace(/\/$/, "");
 }
