@@ -20,6 +20,13 @@ app.disable("x-powered-by");
 
 // SoufTube single-origin build: Cobalt API + static frontend.
 // API routes remain available; frontend fallback handles browser navigation.
+app.use("/_app", (req, res, next) => {
+    if (!req.query.v) {
+        const separator = req.originalUrl.includes("?") ? "&" : "?";
+        return res.redirect(302, `${req.originalUrl}${separator}v=souftube`);
+    }
+    next();
+});
 app.use(express.static("/app/web", { index: "index.html" }));
 
 if (env.apiURL) {
